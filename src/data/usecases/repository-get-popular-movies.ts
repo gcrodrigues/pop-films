@@ -8,7 +8,7 @@ export class RepositoryGetPopularMovies {
   ) {}
 
   async get() {
-    await this.httpGetClient.get(this.url);
+    await this.httpGetClient.get({ url: this.url });
 
     return Promise.resolve();
   }

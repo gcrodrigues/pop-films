@@ -1,10 +1,10 @@
-import { HttpGetClient } from '@/data/protocols/http';
+import { HttpGetClient, HttpGetParams } from '@/data/protocols/http';
 
 export class HttpGetClientSpy implements HttpGetClient {
   url?: string;
 
-  async get(url: string): Promise<void> {
-    this.url = url;
+  async get(params: HttpGetParams): Promise<void> {
+    this.url = params.url;
     return Promise.resolve();
   }
 }
