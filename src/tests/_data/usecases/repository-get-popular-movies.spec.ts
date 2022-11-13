@@ -1,16 +1,17 @@
 import { HttpStatusCode } from '@/data/protocols/http/http-response'
 import { RepositoryGetPopularMovies } from '@/data/usecases/repository-get-popular-movies'
+import { Movie } from '@/domain/entities'
 import { InvalidCredentialsError } from '@/domain/errors'
 import { faker } from '@faker-js/faker'
 import { HttpGetClientSpy } from '../test'
 
 type SutTypes = {
   sut: RepositoryGetPopularMovies
-  httpGetClientSpy: HttpGetClientSpy
+  httpGetClientSpy: HttpGetClientSpy<Movie[]>
 }
 
 const makeSut = (url: string = faker.internet.url()): SutTypes => {
-  const httpGetClientSpy = new HttpGetClientSpy()
+  const httpGetClientSpy = new HttpGetClientSpy<Movie[]>()
   const sut = new RepositoryGetPopularMovies(url, httpGetClientSpy)
 
   return {

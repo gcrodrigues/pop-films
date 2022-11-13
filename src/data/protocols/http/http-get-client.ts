@@ -1,9 +1,9 @@
-import { HttpResponse } from './http-response';
+import { HttpResponse } from './http-response'
 
 export type HttpGetParams = {
-  url: string;
-};
+  url: string
+}
 
-export interface HttpGetClient {
-  get(params: HttpGetParams): Promise<HttpResponse>;
+export interface HttpGetClient<R> {
+  get(params: HttpGetParams): Promise<HttpResponse<R>>
 }
