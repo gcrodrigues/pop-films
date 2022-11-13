@@ -13,6 +13,8 @@ export class RepositoryGetPopularMovies {
     const httpResponse = await this.httpGetClient.get({ url: this.url })
 
     switch (httpResponse.statusCode) {
+      case HttpStatusCode.ok:
+        return httpResponse.body
       case HttpStatusCode.unauthorized:
         throw new InvalidCredentialsError()
       default:
