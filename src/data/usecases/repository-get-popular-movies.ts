@@ -1,5 +1,6 @@
-import { ListPopularMovies } from '@/domain/usecases/list-popular-movies';
-import { HttpGetClient } from '../protocols/http';
+import { InvalidCredentialsError, UnexpectedError } from '@/domain/errors'
+import { HttpGetClient } from '../protocols/http'
+import { HttpStatusCode } from '../protocols/http/http-response'
 
 export class RepositoryGetPopularMovies {
   constructor(
@@ -8,8 +9,13 @@ export class RepositoryGetPopularMovies {
   ) {}
 
   async get() {
-    await this.httpGetClient.get({ url: this.url });
+    const httpResponse = await this.httpGetClient.get({ url: this.url })
 
-    return Promise.resolve();
+    switch (httpResponse.statusCode) {
+      case HttpStatusCode.unauthorized:
+        throw new InvalidCredentialsError()
+      default:
+        return new UnexpectedError()
+    }
   }
 }
