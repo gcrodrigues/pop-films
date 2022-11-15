@@ -1,4 +1,4 @@
-import { mockMovieList } from '@/tests/domain/test'
+import { mockMovieList } from '@/tests/_domain/test'
 import { faker } from '@faker-js/faker'
 import axios from 'axios'
 

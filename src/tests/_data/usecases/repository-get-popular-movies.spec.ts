@@ -2,7 +2,7 @@ import { HttpStatusCode } from '@/data/protocols/http/http-response'
 import { RepositoryGetPopularMovies } from '@/data/usecases/repository-get-popular-movies'
 import { Movie } from '@/domain/entities'
 import { InvalidCredentialsError } from '@/domain/errors'
-import { mockMovieList } from '@/tests/domain/test'
+import { mockMovieList } from '@/tests/_domain/test'
 import { faker } from '@faker-js/faker'
 import { HttpGetClientSpy } from '../test'
 
