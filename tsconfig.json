@@ -5,13 +5,15 @@
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
-    "jsx": "react",
+    "jsx": "react-jsx",
+    "outDir": "./dist",
     "rootDir": "src",
     "baseUrl": "src",
     "paths": {
       "@/*": ["*"]
     },
     "allowJs": true,
+
     "resolveJsonModule": true
   },
   "include": ["src"]

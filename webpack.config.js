@@ -5,8 +5,8 @@ module.exports = {
   mode: 'development',
   entry: './src/main/index.tsx',
   output: {
-    path: path.join(__dirname, 'public/dist'),
-    publicPath: '/public/dist',
+    path: path.join(__dirname, 'dist'),
+    publicPath: '/dist',
     filename: 'bundle.js',
   },
   resolve: {
@@ -40,8 +40,11 @@ module.exports = {
     ],
   },
   devServer: {
-    contentBase: './public',
-    writeToDisk: true,
+    static: {
+      directory: path.join(__dirname, 'public/'),
+    },
+    compress: true,
+    port: 9000,
     historyApiFallback: true,
   },
   externals: {
