@@ -1,9 +1,10 @@
 import { Movie } from '@/domain/entities'
 import { InvalidCredentialsError, UnexpectedError } from '@/domain/errors'
+import { ListPopularMovies } from '@/domain/usecases'
 import { HttpGetClient } from '../protocols/http'
 import { HttpStatusCode } from '../protocols/http/http-response'
 
-export class RepositoryGetPopularMovies {
+export class RepositoryGetPopularMovies implements ListPopularMovies {
   constructor(
     private readonly url: string,
     private readonly httpGetClient: HttpGetClient<Movie[]>
