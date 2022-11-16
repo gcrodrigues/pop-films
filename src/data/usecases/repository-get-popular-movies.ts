@@ -1,17 +1,20 @@
 import { Movie } from '@/domain/entities'
 import { InvalidCredentialsError, UnexpectedError } from '@/domain/errors'
 import { ListPopularMovies } from '@/domain/usecases'
-import { HttpGetClient } from '../protocols/http'
-import { HttpStatusCode } from '../protocols/http/http-response'
+import { HttpClient } from '../protocols/http'
+import { HttpStatusCode } from '../protocols/http/http-client'
 
 export class RepositoryGetPopularMovies implements ListPopularMovies {
   constructor(
     private readonly url: string,
-    private readonly httpGetClient: HttpGetClient<Movie[]>
+    private readonly httpClient: HttpClient<Movie[]>
   ) {}
 
   async get() {
-    const httpResponse = await this.httpGetClient.get({ url: this.url })
+    const httpResponse = await this.httpClient.request({
+      url: this.url,
+      method: 'get',
+    })
 
     switch (httpResponse.statusCode) {
       case HttpStatusCode.ok:

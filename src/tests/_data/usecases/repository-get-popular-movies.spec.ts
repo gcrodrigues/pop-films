@@ -1,38 +1,38 @@
-import { HttpStatusCode } from '@/data/protocols/http/http-response'
+import { HttpStatusCode } from '@/data/protocols/http/http-client'
 import { RepositoryGetPopularMovies } from '@/data/usecases/repository-get-popular-movies'
 import { Movie } from '@/domain/entities'
 import { InvalidCredentialsError } from '@/domain/errors'
 import { mockMovieList } from '@/tests/_domain/test'
 import { faker } from '@faker-js/faker'
-import { HttpGetClientSpy } from '../test'
+import { HttpClientSpy } from '../test'
 
 type SutTypes = {
   sut: RepositoryGetPopularMovies
-  httpGetClientSpy: HttpGetClientSpy<Movie[]>
+  httpClientSpy: HttpClientSpy<Movie[]>
 }
 
 const makeSut = (url: string = faker.internet.url()): SutTypes => {
-  const httpGetClientSpy = new HttpGetClientSpy<Movie[]>()
-  const sut = new RepositoryGetPopularMovies(url, httpGetClientSpy)
+  const httpClientSpy = new HttpClientSpy<Movie[]>()
+  const sut = new RepositoryGetPopularMovies(url, httpClientSpy)
 
   return {
     sut,
-    httpGetClientSpy,
+    httpClientSpy,
   }
 }
 
 describe('RepositoryGetPopularMovies', () => {
   test('Should call HttpGetClient with correct URL', async () => {
     const url = faker.internet.url()
-    const { sut, httpGetClientSpy } = makeSut(url)
+    const { sut, httpClientSpy } = makeSut(url)
     await sut.get()
 
-    expect(httpGetClientSpy.url).toBe(url)
+    expect(httpClientSpy.url).toBe(url)
   })
 
   test('Should throw InvalidCredentialsError if HttpsGetClient returns 401', async () => {
-    const { sut, httpGetClientSpy } = makeSut()
-    httpGetClientSpy.response = {
+    const { sut, httpClientSpy } = makeSut()
+    httpClientSpy.response = {
       statusCode: HttpStatusCode.unauthorized,
     }
     const promise = sut.get()
@@ -41,9 +41,9 @@ describe('RepositoryGetPopularMovies', () => {
   })
 
   test('Should return a movie list if HttpGetClient return 200', async () => {
-    const { sut, httpGetClientSpy } = makeSut()
+    const { sut, httpClientSpy } = makeSut()
     const httpResult = mockMovieList()
-    httpGetClientSpy.response = {
+    httpClientSpy.response = {
       statusCode: HttpStatusCode.ok,
       body: httpResult,
     }
