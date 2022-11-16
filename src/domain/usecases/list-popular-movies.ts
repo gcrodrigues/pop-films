@@ -1,5 +1,6 @@
-import { Movie } from '@/domain/entities';
+import { Movie } from '@/domain/entities'
+import { UnexpectedError } from '../errors'
 
 export interface ListPopularMovies {
-  getPopular: () => Promise<Movie[] | null>;
+  get: () => Promise<Movie[] | UnexpectedError>
 }
