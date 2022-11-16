@@ -4,6 +4,8 @@ module.exports = {
     '<rootDir>/src/**/*.{ts,tsx}',
     '!<rootDir>/src/main/**/*',
     '!<rootDir>/src/**/index.ts',
+    '!<rootDir>/src/**/styles.ts',
+    '!<rootDir>/src/presentation/styles/**/*.ts',
     '!**/*.d.ts',
   ],
   coverageDirectory: 'coverage',
